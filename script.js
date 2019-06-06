@@ -10,14 +10,14 @@ function SS(nlist) { //$$() en jQuery
 console.log(SS(".test"))
 
 function attr(obj, attr, val){ // $.attr en jQuery
-    obj.setAttribute(attr, val)
+    return obj.setAttribute(attr, val)
 }
 
 attr(S(".test"), "style", "color: red");
 
 function val(obj, val){ // $.val en jQuery
     if(val === null || val === undefined) return obj.value
-    else obj.value = val
+    else return obj.value = val
 }
 
 console.log(val(S("input")))
@@ -31,7 +31,7 @@ console.log(text(S(".test")))
 
 function html(obj, val){ // $.html en jQuery
     if(val === null || val === undefined) return obj.innerHTML
-    else obj.innerHTML = val;
+    else return obj.innerHTML = val;
 }
 html(S(".test"), "dadasd")
 console.log(html(S(".test")))
@@ -46,13 +46,13 @@ each(SS("input"), function(i){
 })
 
 function css(obj, css){ //$.css(attr, value) en jQuery
-    obj.setAttribute("style", css)
+    return obj.setAttribute("style", css)
 }
 
 css(S(".test"), "padding: 3rem; background-color: red; margin-top: 40px")
 
 function on(obj, event, func){ //$.on(event, func) en jQuery
-    obj.addEventListener(event, func)
+    return obj.addEventListener(event, func)
 }
 var testingFunc = function(){
     alert(text(S(".test")))
@@ -60,37 +60,101 @@ var testingFunc = function(){
 on(S(".test"), "click", testingFunc)
 
 function off(obj, event, func){ //$.off(event, func) en jQuery
-    obj.removeEventListener(event, func)
+    return obj.removeEventListener(event, func)
 }
 
 off(S(".test"), "click", testingFunc)
 
-function prepend(obj, tag, text){ //$.prepend(event, func) en jQuery
+function prepend(obj, tag, text){ //$.prepend(tag, text) en jQuery
     var node = document.createElement(tag);
     var textnode = document.createTextNode(text);
     console.log(node, textnode)
     node.appendChild(textnode);
-    obj.insertBefore(node, obj.firstChild)
+    return obj.insertBefore(node, obj.firstChild)
 }
 prepend(S("ul"), "li", "1")
 
-function append(obj, tag, text){ //$.append(event, func) en jQuery
+function append(obj, tag, text){ //$.append(tag, text) en jQuery
     var node = document.createElement(tag);
     var textnode = document.createTextNode(text);
     node.appendChild(textnode);
-    obj.appendChild(node)
+    return obj.appendChild(node)
 }
 append(S("ul"), "li", "3")
 
-function show(obj, ms){//$.show(ms) en jQuery NEEDS CORRECTION
-    obj.setAttribute("style", "transform: scale(0);transition: transform "+ms+"ms ease-in-out;");
-    obj.style.transform = "scale(1)";
+function removeAttr(obj, attr){ //$.removeAttr(attr) en jQuery
+    return obj.removeAttribute(attr)
 }
-on(S(".show"), "click", function(){each(SS("img"),function(i){show(SS("img")[i], 200, i)})})
 
-function hide(obj, ms){//$.hide(ms) en jQuery NEEDS CORRECTION
-    obj.setAttribute("style", "transform: scale(1); transition: transform "+ms+"ms ease-in-out;");
-    obj.style.transform = "scale(0)";
+removeAttr(S(".test"), "style");
+
+function addClass(obj, className){ //$.addClass(className) en jQuery
+    return obj.classList.add(className)
 }
-on(S(".show"), "click", function(){each(SS("img"),function(i){show(SS("img")[i], 200)})})
-on(S(".hide"), "click", function(){each(SS("img"),function(i){hide(SS("img")[i], 200)})})
+
+addClass(S(".test"), "blue");
+
+function removeClass(obj, className){ //$.removeClass(className) en jQuery
+    return obj.classList.remove(className)
+ }
+
+ removeClass(S(".test"), "blue");
+
+ function toggleClass(obj, className){ //$.toggleClass(className) en jQuery
+    return obj.classList.toggle(className)
+ }
+
+ on(S("#lol"), "click",function(){ toggleClass(S(".test"), "blue")})
+
+ function hasClass(obj, className){ //$.hasClass(className) en jQuery
+    return (obj.getAttribute("class").match(className)) ?true :false;
+ }
+ console.log(hasClass(S("div"), "test2"))
+
+ function width(obj){ //$.width() en jQuery
+    return  Number(window.getComputedStyle(obj, null).getPropertyValue("width").split("px").join(""));
+ }
+ console.log(width(S(".box")))
+
+ function height(obj){ //$.height() en jQuery
+   return  Number(window.getComputedStyle(obj, null).getPropertyValue("height").split("px").join(""));
+}
+console.log(height(S(".box")))
+
+ function innerWidth(obj){ //$.innerWidth() en jQuery
+    return  obj.offsetWidth;
+ }
+ console.log(innerWidth(S(".box")))
+
+ function innerHeight(obj){ //$.innerHeight() en jQuery
+   return  obj.offsetHeight;
+}
+console.log(innerHeight(S(".box")))
+
+ function outerWidth(obj){ //$.outerWidth() en jQuery
+     var margin = 0;
+     margin += Number(window.getComputedStyle(obj).marginLeft.split("px").join(""))
+     margin += Number(window.getComputedStyle(obj).marginRight.split("px").join(""))     
+    return  obj.offsetWidth + margin;
+ }
+ console.log(outerWidth(S(".box")))
+
+ function outerHeight(obj){ //$.outerHeight() en jQuery
+    var margin = 0;
+    margin += Number(window.getComputedStyle(obj).marginBottom.split("px").join(""))
+    margin += Number(window.getComputedStyle(obj).marginTop.split("px").join(""))    
+    return  obj.offsetHeight + margin;
+}
+console.log(outerHeight(S(".box")))
+
+function offset(obj, top, left){ //$.offset(top, left) en jQuery
+    return css(obj, "position: relative; top: "+top+"; left: "+left+";")
+}
+offset(S(".box"), "50px", "120px")
+
+function offsetParent(obj, top, left){ //$.offsetParent(top, left) en jQuery
+    return css(obj.parentNode, "position: relative; top: "+top+"; left: "+left+";")
+}
+offsetParent(S(".box"), "50px", "120px")
+
+
