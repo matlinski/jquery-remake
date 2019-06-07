@@ -10,14 +10,16 @@ function SS(nlist) { //$$() en jQuery
 console.log(SS(".test"))
 
 function attr(obj, attr, val){ // $.attr en jQuery
-    return obj.setAttribute(attr, val)
+    obj.setAttribute(attr, val)
+    return obj
 }
 
 attr(S(".test"), "style", "color: red");
 
 function val(obj, val){ // $.val en jQuery
     if(val === null || val === undefined) return obj.value
-    else return obj.value = val
+    else obj.value = val
+    return obj
 }
 
 console.log(val(S("input")))
@@ -31,7 +33,8 @@ console.log(text(S(".test")))
 
 function html(obj, val){ // $.html en jQuery
     if(val === null || val === undefined) return obj.innerHTML
-    else return obj.innerHTML = val;
+    else obj.innerHTML = val;
+    return obj;
 }
 html(S(".test"), "dadasd")
 console.log(html(S(".test")))
