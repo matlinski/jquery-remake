@@ -160,7 +160,41 @@ function offsetParent(obj, top, left){ //$.offsetParent(top, left) en jQuery
 }
 offsetParent(S(".box"), "50px", "120px")
 
-function o(css(S(".block"),"border: 2px solid black"), removeClass(S(".block"),"yellow"))
+function position(obj){ //$.offsetParent(top, left) en jQuery
+    var position = {}
+    position.top = obj.getBoundingClientRect().top
+    position.left = obj.getBoundingClientRect().left
+    return position
+}
+console.log(position(S(".box")))
 
+function clone(obj) {
+    return Object.assign({}, obj);
+  }
+var test = {a: 234};
+var test2 = clone(test);
+console.log(test)
+console.log(test2)
 
-o()
+test.a = 432;
+console.log(test)
+console.log(test2)
+
+function wrap(obj, html){
+    html = html.split("><");
+    var temp = html.pop();
+    obj.outerHTML = html[0]+">"+obj.outerHTML+"<"+temp;
+    return obj
+}
+wrap(S(".test"), '<div class="blue"></div>')
+
+function appendTo(obj, parent){ 
+    parent.appendChild(obj)
+    return obj;
+}
+appendTo(S(".test"), S("ul"))
+
+function prependTo(obj, parent){ 
+    parent.insertBefore(obj, parent.firstChild)
+}
+prependTo(S(".test"), S("ul"))
