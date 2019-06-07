@@ -160,4 +160,7 @@ function offsetParent(obj, top, left){ //$.offsetParent(top, left) en jQuery
 }
 offsetParent(S(".box"), "50px", "120px")
 
+function o(css(S(".block"),"border: 2px solid black"), removeClass(S(".block"),"yellow"))
 
+
+o()
